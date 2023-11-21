@@ -2,6 +2,7 @@ import domain.SquarePosition;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SquarePositionTest {
     private SquarePosition position = new SquarePosition();
@@ -24,5 +25,13 @@ public class SquarePositionTest {
         this.position.setPosition(1, 1);
         assertEquals(this.position.getX(), 1);
         assertEquals(this.position.getY(), 1);
+    }
+
+    @Test
+    void positionEquals() {
+        this.position.setPosition(1, 1);
+        SquarePosition sp = new SquarePosition(1, 1);
+        assertEquals(sp, sp);
+        assertTrue(sp.equals(this.position));
     }
 }

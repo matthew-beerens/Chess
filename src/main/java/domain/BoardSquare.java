@@ -44,7 +44,7 @@ public class BoardSquare {
         }
 
         BoardSquare bs = (BoardSquare) o;
-        if (this.getPosition().getX() == bs.getPosition().getX() && this.getPosition().getY() == bs.getPosition().getY()) {
+        if (this.getPosition().equals(bs.getPosition())) {
             return true;
         }
 

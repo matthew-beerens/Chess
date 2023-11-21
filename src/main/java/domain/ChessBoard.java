@@ -73,4 +73,13 @@ public class ChessBoard {
             destination.placePiece(piece);
         }
     }
+
+    public BoardSquare getSquare(int x, int y) {
+        return this.getChessBoard()[x].getRow()[y];
+    }
+
+    public Piece getPiece(int x, int y) {
+        return this.getSquare(x, y).getPiece();
+    }
+
 }

@@ -73,4 +73,23 @@ public class ChessBoardTest {
         this.chessBoard.movePiece(this.chessBoard.getChessBoard()[6].getRow()[0], this.chessBoard.getChessBoard()[5].getRow()[0]);
         assertTrue(this.chessBoard.equals(chessBoardMoved.getChessBoard()));
     }
+
+    @Test
+    void getSquareAtIndex() {
+        ChessBoard cb = new ChessBoard();
+        cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        chessBoard.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        BoardSquare bs = cb.getSquare(1, 0);
+        BoardSquare cs = new BoardSquare();
+        cs.getPosition().setPosition(1, 0);
+        assertTrue(bs.equals(cs));
+    }
+
+    @Test
+    void getPieceAtIndex() {
+        ChessBoard cb = new ChessBoard();
+        cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        Piece blackPawn = cb.getPiece(1, 0);
+        assertEquals(blackPawn, new Pawn(PieceColor.BLACK));
+    }
 }
