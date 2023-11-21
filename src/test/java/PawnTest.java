@@ -44,6 +44,11 @@ public class PawnTest {
     }
 
     @Test
+    void PawnGetMovesBlackEdge() {
+        ChessBoard chessBoard = new ChessBoard();
+    }
+
+    @Test
     void pawnIsWhite() {
         Pawn whitePawn = new Pawn(PieceColor.WHITE);
         assertEquals(whitePawn.getColor(), PieceColor.WHITE);

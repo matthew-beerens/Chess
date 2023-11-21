@@ -82,4 +82,12 @@ public class ChessBoard {
         return this.getSquare(x, y).getPiece();
     }
 
+    public void placePiece(Piece piece, int x, int y) {
+        this.getSquare(x, y).placePiece(piece);
+    }
+
+    public Piece removePiece(int x, int y) {
+        return this.getSquare(x, y).removePiece();
+    }
+
 }

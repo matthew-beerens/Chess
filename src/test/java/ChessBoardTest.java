@@ -92,4 +92,21 @@ public class ChessBoardTest {
         Piece blackPawn = cb.getPiece(1, 0);
         assertEquals(blackPawn, new Pawn(PieceColor.BLACK));
     }
+
+    @Test
+    void placePieceAtIndex() {
+        ChessBoard cb = new ChessBoard();
+        cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        cb.placePiece(new Pawn(PieceColor.WHITE), 1, 0);
+        assertEquals(cb.getPiece(1, 0), new Pawn(PieceColor.WHITE));
+    }
+
+    @Test
+    void removePieceAtIndex() {
+        ChessBoard cb = new ChessBoard();
+        cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        Piece piece = cb.removePiece(1, 0);
+        assertEquals(chessBoard.getPiece(1, 0), new NullPiece());
+        assertEquals(piece, new Pawn(PieceColor.BLACK));
+    }
 }
