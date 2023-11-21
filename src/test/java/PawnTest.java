@@ -46,6 +46,19 @@ public class PawnTest {
     @Test
     void PawnGetMovesBlackEdge() {
         ChessBoard chessBoard = new ChessBoard();
+        chessBoard.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        chessBoard.placePiece(new Pawn(PieceColor.BLACK),7, 0);
+        List<BoardSquare> moves = chessBoard.getPiece(7, 0).getMoves(chessBoard, chessBoard.getSquare(7, 0).getPosition());
+        assertTrue(moves.isEmpty());
+    }
+
+    @Test
+    void PawnGetMovesWhiteEdge() {
+        ChessBoard chessBoard = new ChessBoard();
+        chessBoard.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        chessBoard.placePiece(new Pawn(PieceColor.WHITE),0, 0);
+        List<BoardSquare> moves = chessBoard.getPiece(0, 0).getMoves(chessBoard, chessBoard.getSquare(0, 0).getPosition());
+        assertTrue(moves.isEmpty());
     }
 
     @Test
