@@ -75,10 +75,16 @@ public class ChessBoard {
     }
 
     public BoardSquare getSquare(int x, int y) {
+        if ((x > 7 || x < 0) || (y > 7 || y < 0)) {
+            return null;
+        }
         return this.getChessBoard()[x].getRow()[y];
     }
 
     public Piece getPiece(int x, int y) {
+        if (this.getSquare(x, y) == null) {
+            return null;
+        }
         return this.getSquare(x, y).getPiece();
     }
 

@@ -83,6 +83,10 @@ public class ChessBoardTest {
         BoardSquare cs = new BoardSquare();
         cs.getPosition().setPosition(1, 0);
         assertTrue(bs.equals(cs));
+        assertEquals(cb.getSquare(-1, -1), null);
+        assertEquals(cb.getSquare(8, 8), null);
+        assertEquals(cb.getSquare(7, -1), null);
+        assertEquals(cb.getSquare(-1, 7), null);
     }
 
     @Test
@@ -91,6 +95,7 @@ public class ChessBoardTest {
         cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
         Piece blackPawn = cb.getPiece(1, 0);
         assertEquals(blackPawn, new Pawn(PieceColor.BLACK));
+        assertEquals(cb.getPiece(8, -1), null);
     }
 
     @Test

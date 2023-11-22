@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pawn extends Piece {
+    private boolean firstMove;
     public Pawn() {
-        super(PieceType.PAWN);
+        this(PieceColor.NULL);
     }
     public Pawn(PieceColor color) {
         super(PieceType.PAWN, color);
+        this.firstMove = true;
+    }
+
+    public void setFirstMove(boolean notMoved) {
+        this.firstMove = notMoved;
     }
 
     @Override
@@ -16,21 +22,33 @@ public class Pawn extends Piece {
         List<BoardSquare> moves = new ArrayList<>();
         int offset = this.getColor().equals(PieceColor.WHITE) ? -1 : 1;
 
-        for (int i = 1; i <= 2; i++) {
+        int posX = position.getX() + offset;
+        int posY = position.getY();
 
-            int posX = position.getX() + (i * offset);
-            int posY = position.getY();
+        BoardSquare leftTake = chessboard.getSquare(posX, posY -1 );
+        BoardSquare moveForwardOne = chessboard.getSquare(posX, posY);
+        BoardSquare takeRight = chessboard.getSquare(posX, posY + 1);
+        BoardSquare moveForwardTwo = chessboard.getSquare(posX + offset, posY);
 
-            if ((posX > 7 || posX < 0) || (posY > 7 || posY < 0)) {
-                break;
-            }
+        if(leftTake != null && !leftTake.isEmpty() && leftTake.getPiece().getColor() != this.getColor()) {
+            moves.add(leftTake);
+        }
 
-            if (chessboard.getSquare(posX, posY).isEmpty()) {
-                moves.add(chessboard.getSquare(posX, posY));
-            }
+        if (moveForwardOne != null && moveForwardOne.isEmpty()) {
+            moves.add(moveForwardOne);
+        }
+
+        if (takeRight != null && !takeRight.isEmpty() && takeRight.getPiece().getColor() != this.getColor()) {
+            moves.add(takeRight);
+        }
+
+        if (moveForwardTwo != null && moveForwardOne.isEmpty() && moveForwardTwo.isEmpty() && this.firstMove) {
+            moves.add(moveForwardTwo);
         }
 
         return moves;
+
+
     }
 
 }
