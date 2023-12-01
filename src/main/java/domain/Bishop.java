@@ -17,7 +17,7 @@ public class Bishop extends Piece{
 
         // left top diagonal
         int y = position.getY() - 1;
-        for (int x = position.getX() - 1; x < 8; x--) {
+        for (int x = position.getX() - 1; x >= 0; x--) {
             BoardSquare bs = chessboard.getSquare(x, y);
             if(!this.addMove(moves, bs, this.getOpposingColor())) {
                 break;
@@ -37,7 +37,7 @@ public class Bishop extends Piece{
 
         // right top diagonal
         y = position.getY() + 1;
-        for (int x = position.getX() - 1; x < 8; x--) {
+        for (int x = position.getX() - 1; x >= 0; x--) {
             BoardSquare bs = chessboard.getSquare(x, y);
             if(!this.addMove(moves, bs, this.getOpposingColor())) {
                 break;
