@@ -41,7 +41,6 @@ public class KingTest {
     void kingGetMoves() {
         ChessBoard cb = new ChessBoard();
         cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
-        System.out.println(cb);
         List<BoardSquare> moves = cb.getPiece(7,4).getMoves(cb, cb.getSquare(7, 4).getPosition());
         ArrayList<BoardSquare> expectedMoves = new ArrayList<>();
         assertTrue(moves.isEmpty());
