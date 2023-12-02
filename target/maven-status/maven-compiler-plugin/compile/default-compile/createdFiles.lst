@@ -1,3 +1,7 @@
+ui/ChessBoardUi.class
 Main.class
-ui/MainUi.class
 domain/PieceType.class
+ui/BoardSquareUi.class
+ui/MainUi.class
+ui/PieceUi.class
+ui/ChessBoardUi$1.class
