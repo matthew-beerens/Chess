@@ -15,7 +15,6 @@ domain/ChessBoardRowFactory.class
 ui/BoardSquareUi.class
 domain/PieceColor.class
 domain/NullPiece.class
-ui/MainUi.class
 domain/Bishop.class
 ui/PieceUi.class
 ui/ChessBoardUi$1.class

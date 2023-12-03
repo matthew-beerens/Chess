@@ -1,9 +1,8 @@
 package ui;
 
-import domain.ChessBoard;
-import domain.Piece;
-import domain.PieceColor;
-import domain.PieceType;
+import domain.*;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 
@@ -23,6 +22,7 @@ public class ChessBoardUi extends GridPane {
             case KNIGHT -> sb.append("knight");
             case QUEEN -> sb.append("queen");
             case ROOK -> sb.append("rook");
+            case NULL -> {return null;}
         }
         sb.append(".png");
         return sb.toString();
@@ -42,6 +42,21 @@ public class ChessBoardUi extends GridPane {
                 this.add(square, j, i);
             }
             squareColor = squareColor.equals(color1) ? color2 : color1;
+        }
+    }
+
+    public void renderPieces(ChessBoard chessBoard) {
+        for (Node square : this.getChildren()) {
+            BoardSquareUi bs = (BoardSquareUi) square;
+            ObservableList<Node> children = bs.getChildren();
+            if(children.size() > 1) {
+                children.remove(1);
+            }
+            SquarePosition sp = bs.getPosition();
+            String asset = this.getAsset(chessBoard.getPiece(sp.getX(), sp.getY()));
+            if (asset != null) {
+                children.add(new PieceUi(asset));
+            }
         }
     }
 

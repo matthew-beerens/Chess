@@ -1,8 +1,8 @@
 /Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/domain/PieceColor.java
 /Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/ui/PieceUi.java
-/Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/ui/MainUi.java
 /Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/domain/ChessBoard.java
 /Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/domain/King.java
+/Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/logic/Chess.java
 /Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/domain/PieceType.java
 /Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/domain/Rook.java
 /Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/domain/Queen.java
