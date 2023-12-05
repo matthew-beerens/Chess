@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,8 +55,12 @@ public class ChessBoardUi extends GridPane {
         for (Node square : this.getChildren()) {
             BoardSquareUi bs = (BoardSquareUi) square;
             ObservableList<Node> children = bs.getChildren();
-            if(children.size() > 1) {
-                children.remove(1);
+            Iterator<Node> iterator = children.iterator();
+            while (iterator.hasNext()) {
+                Node child = iterator.next();
+                if (child.getClass().equals(PieceUi.class)) {
+                    iterator.remove(); // Safely remove the current element
+                }
             }
             SquarePosition sp = bs.getPosition();
             String asset = this.getAsset(chessBoard.getPiece(sp.getX(), sp.getY()));
@@ -73,6 +78,13 @@ public class ChessBoardUi extends GridPane {
         for (Node square : this.getChildren()) {
             BoardSquareUi bs = (BoardSquareUi) square;
             ObservableList<Node> children = bs.getChildren();
+            Iterator<Node> iterator = children.iterator();
+            while(iterator.hasNext()) {
+                Node child = iterator.next();
+                if (child.getClass().equals(MoveMarkerUi.class)) {
+                    iterator.remove();
+                }
+            }
             if (positions.contains(bs.getPosition())) {
                 children.add(new MoveMarkerUi());
             }

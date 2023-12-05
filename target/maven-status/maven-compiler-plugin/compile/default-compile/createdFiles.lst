@@ -7,6 +7,7 @@ domain/SquarePosition.class
 domain/Queen.class
 domain/King.class
 Main.class
+ui/MoveMarkerUi.class
 domain/PieceType.class
 logic/Chess.class
 domain/Pawn.class

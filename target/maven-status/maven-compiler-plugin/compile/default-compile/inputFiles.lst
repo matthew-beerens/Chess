@@ -10,6 +10,7 @@
 /Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/domain/ChessBoardRow.java
 /Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/domain/SquarePosition.java
 /Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/ui/BoardSquareUi.java
+/Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/ui/MoveMarkerUi.java
 /Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/domain/BoardSquare.java
 /Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/domain/Piece.java
 /Users/matthewbeerens/IdeaProjects/TMCProjects/mooc-java-programming-ii/Chess/src/main/java/domain/NullPiece.java
