@@ -9,6 +9,7 @@ domain/King.class
 Main.class
 ui/MoveMarkerUi.class
 domain/PieceType.class
+ui/MoveMarkerTakeUi.class
 logic/Chess.class
 domain/Pawn.class
 domain/Piece.class
