@@ -1,10 +1,11 @@
 package ui;
 
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Circle;
 
-public class MoveMarkerUi extends Rectangle {
+
+public class MoveMarkerUi extends Circle {
     public MoveMarkerUi() {
-        super(90, 90, Color.rgb(0, 0,255, 0.3));
+        super(15, Color.rgb(50, 50,50, 0.6));
     }
 }
