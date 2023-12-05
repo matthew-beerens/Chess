@@ -30,9 +30,9 @@ public class Chess extends Application {
     public void start(Stage stage) throws Exception {
         stage.setTitle("Chess");
         stage.setMaxWidth(720);
-        stage.setMaxHeight(750);
+        stage.setMaxHeight(748);
         stage.setMinWidth(720);
-        stage.setMinHeight(750);
+        stage.setMinHeight(748);
 
         for (Node bsui : this.ui.getChildren()) {
             bsui.setOnMouseClicked(e -> {
