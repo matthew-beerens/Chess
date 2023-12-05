@@ -4,9 +4,7 @@ import domain.*;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 
 import java.util.Iterator;
 import java.util.List;
@@ -59,7 +57,7 @@ public class ChessBoardUi extends GridPane {
             while (iterator.hasNext()) {
                 Node child = iterator.next();
                 if (child.getClass().equals(PieceUi.class)) {
-                    iterator.remove(); // Safely remove the current element
+                    iterator.remove();
                 }
             }
             SquarePosition sp = bs.getPosition();
