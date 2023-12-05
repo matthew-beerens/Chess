@@ -4,7 +4,12 @@ import domain.*;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ChessBoardUi extends GridPane {
     public ChessBoardUi() {
@@ -58,6 +63,21 @@ public class ChessBoardUi extends GridPane {
                 children.add(new PieceUi(asset));
             }
         }
+    }
+
+    public void renderMoves(List<BoardSquare> moves) {
+        List<SquarePosition> positions = moves.stream()
+                .map(square -> square.getPosition())
+                .collect(Collectors.toList());
+
+        for (Node square : this.getChildren()) {
+            BoardSquareUi bs = (BoardSquareUi) square;
+            ObservableList<Node> children = bs.getChildren();
+            if (positions.contains(bs.getPosition())) {
+                children.add(new MoveMarkerUi());
+            }
+        }
+
     }
 
 }

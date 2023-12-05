@@ -39,6 +39,7 @@ public class Chess extends Application {
                 BoardSquareUi bs = (BoardSquareUi) bsui;
                 this.makeMove(bs);
                 this.renderPieces(this.chessBoard);
+                this.ui.renderMoves(this.availableMoves);
             });
         }
 
