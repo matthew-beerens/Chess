@@ -22,7 +22,7 @@ public class Chess extends Application {
         this.ui = new ChessBoardUi();
         this.chessBoard = new ChessBoard();
         this.chessBoard.initialize(PieceColor.WHITE, PieceColor.BLACK);
-        this.ui.initialize(Color.BURLYWOOD, Color.MAROON, this.chessBoard);
+        this.ui.initialize(Color.rgb(222,184,135), Color.rgb(139,69,19), this.chessBoard);
         this.selectedSquare = null;
         this.availableMoves = new ArrayList<>();
     }
