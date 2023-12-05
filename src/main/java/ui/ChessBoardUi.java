@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 
 import java.util.Iterator;
 import java.util.List;
@@ -79,12 +80,17 @@ public class ChessBoardUi extends GridPane {
             Iterator<Node> iterator = children.iterator();
             while(iterator.hasNext()) {
                 Node child = iterator.next();
-                if (child.getClass().equals(MoveMarkerUi.class)) {
+                if (child.getClass().equals(MoveMarkerUi.class) || child.getClass().equals(MoveMarkerTakeUi.class)) {
                     iterator.remove();
                 }
             }
             if (positions.contains(bs.getPosition())) {
-                children.add(new MoveMarkerUi());
+                Circle moveMarker = new Circle();
+                for (Node child :
+                        children) {
+                    moveMarker = child.getClass().equals(PieceUi.class) ? new MoveMarkerTakeUi() : new MoveMarkerUi();
+                }
+                children.add(moveMarker);
             }
         }
 
