@@ -114,4 +114,20 @@ public class ChessBoardTest {
         assertEquals(chessBoard.getPiece(1, 0), new NullPiece());
         assertEquals(piece, new Pawn(PieceColor.BLACK));
     }
+
+    @Test
+    void castleKing() {
+        ChessBoard cb = new ChessBoard();
+        ChessBoard cb2 = new ChessBoard();
+        cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        cb2.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        cb.removePiece(7, 5);
+        cb.removePiece(7, 6);
+        Piece king = cb2.removePiece(7, 4);
+        Piece rook = cb2. removePiece(7, 7);
+        cb2.placePiece(rook, 7, 5);
+        cb2.placePiece(king, 7,6);
+        cb.movePiece(cb.getSquare(7, 4), cb.getSquare(7, 7));
+        assertEquals(cb2.toString(), cb.toString());
+    }
 }
