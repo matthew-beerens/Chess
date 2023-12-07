@@ -69,9 +69,30 @@ public class ChessBoard {
 
     public void movePiece(BoardSquare source, BoardSquare destination) {
         if (source.getPiece().getMoves(this, source.getPosition()).contains(destination)) {
+            if (checkCastle(source, destination)) {
+                this.castle(source, destination);
+                return;
+            }
             Piece piece = source.removePiece();
+            piece.setFirstMove(false);
             destination.placePiece(piece);
         }
+    }
+
+    public boolean checkCastle(BoardSquare source, BoardSquare destination) {
+        if (source.getPiece().getType().equals(PieceType.KING) && destination.getPiece().getType().equals(PieceType.ROOK)) {
+            return true;
+        }
+        return false;
+    }
+
+    public void castle(BoardSquare source, BoardSquare destination) {
+        Piece king = source.removePiece();
+        Piece rook = destination.removePiece();
+        king.setFirstMove(false);
+        rook.setFirstMove(false);
+        this.placePiece(king, source.getPosition().getX(), destination.getPosition().getY() - 1);
+        this.placePiece(rook, destination.getPosition().getX(), source.getPosition().getY() + 1);
     }
 
     public BoardSquare getSquare(int x, int y) {

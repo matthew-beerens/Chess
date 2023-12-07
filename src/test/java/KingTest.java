@@ -83,4 +83,14 @@ public class KingTest {
             moves.contains(m);
         }
     }
+
+    @Test
+    void castle() {
+        ChessBoard cb = new ChessBoard();
+        cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        cb.removePiece(7, 5);
+        cb.removePiece(7, 6);
+        List<BoardSquare> moves = cb.getPiece(7, 4).getMoves(cb, cb.getSquare(7, 4).getPosition());
+        assertEquals(2, moves.size());
+    }
 }

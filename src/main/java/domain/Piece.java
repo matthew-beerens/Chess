@@ -8,6 +8,8 @@ public abstract class Piece {
     private PieceType type;
     private PieceColor color;
 
+    private boolean firstMove;
+
     public Piece() {
         this(PieceType.NULL, PieceColor.NULL);
     }
@@ -20,6 +22,15 @@ public abstract class Piece {
     public Piece(PieceType pieceType, PieceColor pieceColor) {
         this.type = pieceType;
         this.color = pieceColor;
+        this.firstMove = true;
+    }
+
+    public boolean getFirstMove() {
+        return this.firstMove;
+    }
+
+    public void setFirstMove(boolean val) {
+        this.firstMove = val;
     }
     public PieceType getType() {
         return type;
@@ -65,6 +76,21 @@ public abstract class Piece {
         }
 
         if (bs.getPiece().getColor().equals(this.getColor())) {
+            return false;
+        }
+
+        moves.add(bs);
+
+        if(bs.getPiece().getColor().equals(color)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean addMove(ArrayList<BoardSquare> moves, BoardSquare bs) {
+
+        if (bs == null) {
             return false;
         }
 
