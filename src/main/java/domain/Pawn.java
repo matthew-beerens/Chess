@@ -21,6 +21,7 @@ public class Pawn extends Piece {
     public List<BoardSquare> getMoves(ChessBoard chessboard, SquarePosition position) {
         List<BoardSquare> moves = new ArrayList<>();
         int offset = this.getColor().equals(PieceColor.WHITE) ? -1 : 1;
+        int rank = this.getColor().equals(PieceColor.WHITE) ? 6 : 1;
 
         int posX = position.getX() + offset;
         int posY = position.getY();
@@ -42,7 +43,7 @@ public class Pawn extends Piece {
             moves.add(takeRight);
         }
 
-        if (moveForwardTwo != null && moveForwardOne.isEmpty() && moveForwardTwo.isEmpty() && this.firstMove) {
+        if (moveForwardTwo != null && moveForwardOne.isEmpty() && moveForwardTwo.isEmpty() && this.firstMove && position.getX() == rank) {
             moves.add(moveForwardTwo);
         }
 

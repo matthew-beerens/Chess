@@ -145,4 +145,13 @@ public class PawnTest {
         assertEquals(nullPawn.getColor(), PieceColor.NULL);
     }
 
+    @Test
+    void singleMoveAfterFirstMove() {
+        ChessBoard cb = new ChessBoard();
+        cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        cb.movePiece(cb.getSquare(6, 2), cb.getSquare(4, 2));
+        Pawn pawn = (Pawn) cb.getPiece(4, 2);
+        assertEquals(1, pawn.getMoves(cb, cb.getSquare(4,2).getPosition()).size());
+    }
+
 }
