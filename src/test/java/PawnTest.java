@@ -163,7 +163,6 @@ public class PawnTest {
         Pawn pawn = new Pawn(PieceColor.BLACK);
         pawn.setEnpassantable(true);
         cb.placePiece(pawn, 3, 5);
-        System.out.println(cb);
 
         List<BoardSquare> moves = cb.getPiece(3, 4).getMoves(cb, cb.getSquare(3, 4).getPosition());
         assertEquals(2, moves.size());
