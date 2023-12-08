@@ -110,8 +110,8 @@ public class ChessBoard {
 
     public boolean checkEnpassantable(BoardSquare source, BoardSquare destination) {
         if (source.getPiece().getType().equals(PieceType.PAWN)
-                && (source.getPosition().getX() - destination.getPosition().getX() == 2)
-                || (source.getPosition().getX() - destination.getPosition().getX() == -2)) {
+                && ((source.getPosition().getX() - destination.getPosition().getX() == 2)
+                || (source.getPosition().getX() - destination.getPosition().getX() == -2))) {
             return true;
         }
         return false;
