@@ -40,6 +40,8 @@ public class Pawn extends Piece {
         BoardSquare moveForwardOne = chessboard.getSquare(posX, posY);
         BoardSquare takeRight = chessboard.getSquare(posX, posY + 1);
         BoardSquare moveForwardTwo = chessboard.getSquare(posX + offset, posY);
+        BoardSquare enpassantableLeft = chessboard.getSquare(posX - offset, posY - 1);
+        BoardSquare enpassantableRight = chessboard.getSquare(posX - offset, posY + 1);
 
         if(leftTake != null && !leftTake.isEmpty() && leftTake.getPiece().getColor() != this.getColor()) {
             moves.add(leftTake);
@@ -59,6 +61,22 @@ public class Pawn extends Piece {
                 && this.firstMove
                 && position.getX() == rank) {
             moves.add(moveForwardTwo);
+        }
+
+        if (enpassantableLeft != null
+            && enpassantableLeft.getPiece().getType().equals(PieceType.PAWN)) {
+            Pawn pawn = (Pawn) enpassantableLeft.getPiece();
+            if (pawn.isEnpassantable()) {
+                moves.add(enpassantableLeft);
+            }
+        }
+
+        if (enpassantableRight != null
+                && enpassantableRight.getPiece().getType().equals(PieceType.PAWN)) {
+            Pawn pawn = (Pawn) enpassantableRight.getPiece();
+            if (pawn.isEnpassantable()) {
+                moves.add(enpassantableRight);
+            }
         }
 
         return moves;
