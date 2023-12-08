@@ -5,16 +5,26 @@ import java.util.List;
 
 public class Pawn extends Piece {
     private boolean firstMove;
+    private boolean enpassantable;
     public Pawn() {
         this(PieceColor.NULL);
     }
     public Pawn(PieceColor color) {
         super(PieceType.PAWN, color);
         this.firstMove = true;
+        this.enpassantable = false;
     }
 
     public void setFirstMove(boolean notMoved) {
         this.firstMove = notMoved;
+    }
+
+    public boolean isEnpassantable() {
+        return this.enpassantable;
+    }
+
+    public void setEnpassantable(boolean val) {
+        this.enpassantable = val;
     }
 
     @Override
@@ -43,7 +53,11 @@ public class Pawn extends Piece {
             moves.add(takeRight);
         }
 
-        if (moveForwardTwo != null && moveForwardOne.isEmpty() && moveForwardTwo.isEmpty() && this.firstMove && position.getX() == rank) {
+        if (moveForwardTwo != null
+                && moveForwardOne.isEmpty()
+                && moveForwardTwo.isEmpty()
+                && this.firstMove
+                && position.getX() == rank) {
             moves.add(moveForwardTwo);
         }
 
