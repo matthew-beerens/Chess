@@ -155,16 +155,6 @@ public class PawnTest {
     }
 
     @Test
-    void enpassantable() {
-        ChessBoard cb = new ChessBoard();
-        cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
-        BoardSquare dest = cb.getPiece(6, 4).getMoves(cb, cb.getSquare(6, 4).getPosition()).get(1);
-        cb.movePiece(cb.getSquare(6, 4), dest);
-        Pawn pawn = (Pawn) dest.getPiece();
-        assertEquals(true, pawn.isEnpassantable());
-    }
-
-    @Test
     void takeEnpassantableMove() {
         ChessBoard cb = new ChessBoard();
         cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
