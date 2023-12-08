@@ -68,15 +68,16 @@ public class ChessBoard {
     }
 
     public void movePiece(BoardSquare source, BoardSquare destination) {
-        if (source.getPiece().getMoves(this, source.getPosition()).contains(destination)) {
-            if (checkCastle(source, destination)) {
-                this.castle(source, destination);
-                return;
-            }
-            Piece piece = source.removePiece();
-            piece.setFirstMove(false);
-            destination.placePiece(piece);
+        if (!source.getPiece().getMoves(this, source.getPosition()).contains(destination)) {
+            return;
         }
+        if (checkCastle(source, destination)) {
+            this.castle(source, destination);
+            return;
+        }
+        Piece piece = source.removePiece();
+        piece.setFirstMove(false);
+        destination.placePiece(piece);
     }
 
     public boolean checkCastle(BoardSquare source, BoardSquare destination) {
