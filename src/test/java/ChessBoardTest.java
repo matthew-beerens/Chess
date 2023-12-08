@@ -150,4 +150,21 @@ public class ChessBoardTest {
         Pawn pawn = (Pawn) dest.getPiece();
         assertEquals(true, pawn.isEnpassantable());
     }
+
+    @Test
+    void enpassant() {
+        ChessBoard cb = new ChessBoard();
+        ChessBoard cb1 = new ChessBoard();
+
+        cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        cb.placePiece(new Pawn(PieceColor.BLACK), 4, 4);
+        cb.movePiece(cb.getSquare(6, 3), cb.getSquare(4, 3));
+        cb.movePiece(cb.getSquare(4, 4), cb.getSquare(4, 3));
+
+        cb1.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        cb1.removePiece(6, 3);
+        cb1.placePiece(new Pawn(PieceColor.BLACK),5, 3);
+
+        assertEquals(true, cb.toString().equals(cb1.toString()));
+    }
 }

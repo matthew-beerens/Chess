@@ -78,6 +78,10 @@ public class ChessBoard {
         if (checkEnpassantable(source, destination)) {
             this.setEnpassantable((Pawn) source.getPiece());
         }
+        if (checkEnpassant(source, destination)) {
+            this.enpassant(source, destination);
+            return;
+        }
         Piece piece = source.removePiece();
         piece.setFirstMove(false);
         destination.placePiece(piece);
@@ -110,6 +114,29 @@ public class ChessBoard {
 
     public void setEnpassantable(Pawn pawn) {
         pawn.setEnpassantable(true);
+    }
+
+    public boolean checkEnpassant(BoardSquare source, BoardSquare destination) {
+        if (!source.getPiece().getType().equals(PieceType.PAWN)) {
+            return false;
+        }
+        if (!destination.getPiece().getType().equals(PieceType.PAWN)) {
+            return false;
+        }
+        int difference = source.getPosition().getY() - destination.getPosition().getY();
+        if (!(difference == 1 || difference == -1)) {
+            return false;
+        }
+        Pawn pawn = (Pawn) destination.getPiece();
+        return pawn.isEnpassantable();
+    }
+
+    public void enpassant(BoardSquare source, BoardSquare destination) {
+        PieceColor direction = source.getPiece().getOpposingColor();
+        int x = direction.equals(PieceColor.BLACK) ? -1 : 1;
+        Piece piece = this.removePiece(source.getPosition().getX(), source.getPosition().getY());
+        this.removePiece(destination.getPosition().getX(), destination.getPosition().getY());
+        this.placePiece(piece, destination.getPosition().getX() + x, destination.getPosition().getY());
     }
 
     public BoardSquare getSquare(int x, int y) {
