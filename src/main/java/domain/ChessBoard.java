@@ -75,6 +75,9 @@ public class ChessBoard {
             this.castle(source, destination);
             return;
         }
+        if (checkEnpassantable(source, destination)) {
+            this.setEnpassantable((Pawn) source.getPiece());
+        }
         Piece piece = source.removePiece();
         piece.setFirstMove(false);
         destination.placePiece(piece);
@@ -94,6 +97,19 @@ public class ChessBoard {
         rook.setFirstMove(false);
         this.placePiece(king, source.getPosition().getX(), destination.getPosition().getY() - 1);
         this.placePiece(rook, destination.getPosition().getX(), source.getPosition().getY() + 1);
+    }
+
+    public boolean checkEnpassantable(BoardSquare source, BoardSquare destination) {
+        if (source.getPiece().getType().equals(PieceType.PAWN)
+                && (source.getPosition().getX() - destination.getPosition().getX() == 2)
+                || (source.getPosition().getX() - destination.getPosition().getX() == -2)) {
+            return true;
+        }
+        return false;
+    }
+
+    public void setEnpassantable(Pawn pawn) {
+        pawn.setEnpassantable(true);
     }
 
     public BoardSquare getSquare(int x, int y) {

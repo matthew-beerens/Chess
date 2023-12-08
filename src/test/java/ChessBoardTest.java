@@ -132,11 +132,21 @@ public class ChessBoardTest {
     }
 
     @Test
-    void enpassantable() {
+    void enpassantableWhite() {
         ChessBoard cb = new ChessBoard();
         cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
         BoardSquare dest = cb.getPiece(6, 4).getMoves(cb, cb.getSquare(6, 4).getPosition()).get(1);
         cb.movePiece(cb.getSquare(6, 4), dest);
+        Pawn pawn = (Pawn) dest.getPiece();
+        assertEquals(true, pawn.isEnpassantable());
+    }
+
+    @Test
+    void enpassantableBlack() {
+        ChessBoard cb = new ChessBoard();
+        cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        BoardSquare dest = cb.getPiece(1, 4).getMoves(cb, cb.getSquare(1, 4).getPosition()).get(1);
+        cb.movePiece(cb.getSquare(1, 4), dest);
         Pawn pawn = (Pawn) dest.getPiece();
         assertEquals(true, pawn.isEnpassantable());
     }
