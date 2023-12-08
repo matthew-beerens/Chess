@@ -68,20 +68,25 @@ public class ChessBoard {
     }
 
     public void movePiece(BoardSquare source, BoardSquare destination) {
+        // valid move check
         if (!source.getPiece().getMoves(this, source.getPosition()).contains(destination)) {
             return;
         }
+        // castle logic
         if (checkCastle(source, destination)) {
             this.castle(source, destination);
             return;
         }
-        if (checkEnpassantable(source, destination)) {
-            this.setEnpassantable((Pawn) source.getPiece());
-        }
+        // enpassant logic
         if (checkEnpassant(source, destination)) {
             this.enpassant(source, destination);
             return;
         }
+        this.clearEnpassantables();
+        if (checkEnpassantable(source, destination)) {
+            this.setEnpassantable((Pawn) source.getPiece());
+        }
+        // normal move
         Piece piece = source.removePiece();
         piece.setFirstMove(false);
         destination.placePiece(piece);
@@ -137,6 +142,18 @@ public class ChessBoard {
         Piece piece = this.removePiece(source.getPosition().getX(), source.getPosition().getY());
         this.removePiece(destination.getPosition().getX(), destination.getPosition().getY());
         this.placePiece(piece, destination.getPosition().getX() + x, destination.getPosition().getY());
+    }
+
+    public void clearEnpassantables() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Piece piece = this.getPiece(i,j);
+                if (piece.getType().equals(PieceType.PAWN)) {
+                    Pawn pawn = (Pawn) piece;
+                    pawn.setEnpassantable(false);
+                }
+            }
+        }
     }
 
     public BoardSquare getSquare(int x, int y) {
