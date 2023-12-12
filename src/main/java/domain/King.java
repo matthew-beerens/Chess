@@ -1,6 +1,8 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class King extends Piece{
@@ -10,6 +12,30 @@ public class King extends Piece{
 
     public King(PieceColor color) {
         super(PieceType.KING, color);
+    }
+
+    public void removeChecked(ChessBoard chessBoard, ArrayList<BoardSquare> moves, SquarePosition king) {
+        List<BoardSquare> coveredMoves = new ArrayList<>();
+
+        for (ChessBoardRow bs : chessBoard.getChessBoard()) {
+            for (BoardSquare square: bs.getRow()) {
+                Piece piece = square.getPiece();
+                if (piece.getType().equals(PieceType.KING)
+                        || piece.getType().equals(PieceType.NULL)
+                        || !piece.getColor().equals(this.getOpposingColor())) {
+                    continue;
+                }
+                coveredMoves.addAll(square.getPiece().getMoves(chessBoard, square.getPosition()));
+            }
+        }
+
+        Iterator iterator = moves.iterator();
+        while(iterator.hasNext()) {
+            BoardSquare move = (BoardSquare) iterator.next();
+            if (coveredMoves.contains(move)) {
+                iterator.remove();
+            }
+        }
     }
 
     @Override
@@ -37,6 +63,7 @@ public class King extends Piece{
 
             }
         }
+        removeChecked(chessboard, moves, position);
         return moves;
     }
 
