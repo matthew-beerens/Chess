@@ -1,5 +1,9 @@
 import domain.*;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -166,5 +170,27 @@ public class ChessBoardTest {
         cb1.placePiece(new Pawn(PieceColor.BLACK),5, 3);
 
         assertEquals(true, cb.toString().equals(cb1.toString()));
+    }
+
+    @Test
+    void checked() {
+        ChessBoard cb = new ChessBoard();
+        cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        cb.removePiece(6, 4);
+        cb.removePiece(7, 4);
+        cb.placePiece(new King(PieceColor.WHITE), 6, 4);
+        cb.placePiece(new Bishop(PieceColor.BLACK), 4, 6);
+        cb.setDangerousMoves();
+
+        assertEquals(true, cb.checkChecked());
+
+        cb.movePiece(cb.getSquare(6, 4), cb.getSquare(5, 4));
+        assertEquals(false, cb.checkChecked());
+    }
+
+
+    @Test
+    void checkmate() {
+
     }
 }

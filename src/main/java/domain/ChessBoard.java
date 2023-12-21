@@ -6,10 +6,12 @@ public class ChessBoard {
     private ChessBoardRow[] chessBoard;
     private ArrayList<BoardSquare> blackMoves;
     private ArrayList<BoardSquare> whiteMoves;
+    private ArrayList<BoardSquare> allMoves;
     public ChessBoard() {
         this.chessBoard = new ChessBoardRow[8];
         this.blackMoves = new ArrayList<>();
         this.whiteMoves = new ArrayList<>();
+        this.allMoves = new ArrayList<>();
         for (int i = 0; i < this.chessBoard.length; i++) {
             this.chessBoard[i] = new ChessBoardRow();
         }
@@ -150,6 +152,18 @@ public class ChessBoard {
         Piece piece = this.removePiece(source.getPosition().getX(), source.getPosition().getY());
         this.removePiece(destination.getPosition().getX(), destination.getPosition().getY());
         this.placePiece(piece, destination.getPosition().getX() + x, destination.getPosition().getY());
+    }
+
+    public boolean checkChecked() {
+        this.allMoves.clear();
+        this.allMoves.addAll(this.blackMoves);
+        this.allMoves.addAll(this.whiteMoves);
+        for (BoardSquare bs : this.allMoves) {
+            if (bs.getPiece().getType().equals(PieceType.KING)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void clearEnpassantables() {
