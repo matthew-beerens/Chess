@@ -95,16 +95,25 @@ public class KingTest {
     }
 
     @Test
-    void checkedMove() {
+    void checkedMoveZero() {
         ChessBoard cb = new ChessBoard();
         cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
         cb.removePiece(6, 4);
         cb.placePiece(new Bishop(PieceColor.BLACK), 5, 5);
+        cb.setDangerousMoves();
         List<BoardSquare> moves = cb.getPiece(7, 4).getMoves(cb, cb.getSquare(7, 4).getPosition());
+        System.out.println(cb);
         assertEquals(0, moves.size());
+    }
+
+    @Test
+    void checkedMoveOne() {
+        ChessBoard cb = new ChessBoard();
+        cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
+        cb.removePiece(6, 4);
         cb.placePiece(new Bishop(PieceColor.WHITE), 5, 5);
         List<BoardSquare> moves1 = cb.getPiece(7, 4).getMoves(cb, cb.getSquare(7, 4).getPosition());
+        cb.setDangerousMoves();
         assertEquals(1, moves1.size());
-        // need to implement check for king vs king - current function doesnt work for it. maybe overload method.
     }
 }

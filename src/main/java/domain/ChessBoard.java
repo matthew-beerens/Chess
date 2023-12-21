@@ -1,12 +1,19 @@
 package domain;
 
+import java.util.ArrayList;
+
 public class ChessBoard {
     private ChessBoardRow[] chessBoard;
+    private ArrayList<BoardSquare> blackMoves;
+    private ArrayList<BoardSquare> whiteMoves;
     public ChessBoard() {
         this.chessBoard = new ChessBoardRow[8];
+        this.blackMoves = new ArrayList<>();
+        this.whiteMoves = new ArrayList<>();
         for (int i = 0; i < this.chessBoard.length; i++) {
             this.chessBoard[i] = new ChessBoardRow();
         }
+        this.setDangerousMoves();
     }
 
     public ChessBoardRow[] getChessBoard() {
@@ -90,6 +97,7 @@ public class ChessBoard {
         Piece piece = source.removePiece();
         piece.setFirstMove(false);
         destination.placePiece(piece);
+        this.setDangerousMoves();
     }
 
     public boolean checkCastle(BoardSquare source, BoardSquare destination) {
@@ -170,12 +178,38 @@ public class ChessBoard {
         return this.getSquare(x, y).getPiece();
     }
 
+    public ArrayList<BoardSquare> getBlackMoves() {
+        return this.blackMoves;
+    }
+
+    public ArrayList<BoardSquare> getWhiteMoves() {
+        return this.whiteMoves;
+    }
+
     public void placePiece(Piece piece, int x, int y) {
         this.getSquare(x, y).placePiece(piece);
     }
 
     public Piece removePiece(int x, int y) {
         return this.getSquare(x, y).removePiece();
+    }
+
+    public void setDangerousMoves() {
+        this.blackMoves.clear();
+        this.whiteMoves.clear();
+        for (ChessBoardRow bs : this.getChessBoard()) {
+            for (BoardSquare square: bs.getRow()) {
+                Piece piece = square.getPiece();
+                if (piece.getType().equals(PieceType.NULL)) {
+                    continue;
+                }
+                if (piece.getColor().equals(PieceColor.WHITE)) {
+                    this.whiteMoves.addAll(square.getPiece().getMoves(this, square.getPosition()));
+                } else {
+                    this.blackMoves.addAll(square.getPiece().getMoves(this, square.getPosition()));
+                }
+            }
+        }
     }
 
 }

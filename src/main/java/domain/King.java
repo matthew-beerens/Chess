@@ -1,9 +1,6 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class King extends Piece{
     public King() {
@@ -12,30 +9,6 @@ public class King extends Piece{
 
     public King(PieceColor color) {
         super(PieceType.KING, color);
-    }
-
-    public void removeChecked(ChessBoard chessBoard, ArrayList<BoardSquare> moves, SquarePosition king) {
-        List<BoardSquare> coveredMoves = new ArrayList<>();
-
-        for (ChessBoardRow bs : chessBoard.getChessBoard()) {
-            for (BoardSquare square: bs.getRow()) {
-                Piece piece = square.getPiece();
-                if (piece.getType().equals(PieceType.KING)
-                        || piece.getType().equals(PieceType.NULL)
-                        || !piece.getColor().equals(this.getOpposingColor())) {
-                    continue;
-                }
-                coveredMoves.addAll(square.getPiece().getMoves(chessBoard, square.getPosition()));
-            }
-        }
-
-        Iterator iterator = moves.iterator();
-        while(iterator.hasNext()) {
-            BoardSquare move = (BoardSquare) iterator.next();
-            if (coveredMoves.contains(move)) {
-                iterator.remove();
-            }
-        }
     }
 
     @Override
@@ -63,7 +36,17 @@ public class King extends Piece{
 
             }
         }
-        removeChecked(chessboard, moves, position);
+
+        ArrayList<BoardSquare> dangerousMoves = this.getColor().equals(PieceColor.WHITE) ? chessboard.getBlackMoves() : chessboard.getWhiteMoves();
+
+        Iterator iterator = moves.iterator();
+        while(iterator.hasNext()) {
+            BoardSquare move = (BoardSquare) iterator.next();
+            if (dangerousMoves.contains(move)) {
+                iterator.remove();
+            }
+        }
+
         return moves;
     }
 
