@@ -102,7 +102,6 @@ public class KingTest {
         cb.placePiece(new Bishop(PieceColor.BLACK), 5, 5);
         cb.setDangerousMoves();
         List<BoardSquare> moves = cb.getPiece(7, 4).getMoves(cb, cb.getSquare(7, 4).getPosition());
-        System.out.println(cb);
         assertEquals(0, moves.size());
     }
 
