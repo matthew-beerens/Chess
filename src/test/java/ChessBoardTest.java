@@ -182,12 +182,23 @@ public class ChessBoardTest {
         cb.placePiece(new Bishop(PieceColor.BLACK), 4, 6);
         cb.setDangerousMoves();
 
-        assertEquals(true, cb.checkChecked());
-
+        assertEquals(true, cb.kingChecked());
         cb.movePiece(cb.getSquare(6, 4), cb.getSquare(5, 4));
-        assertEquals(false, cb.checkChecked());
+        assertEquals(false, cb.kingChecked());
     }
 
+    @Test
+    void checkedMove() {
+//        ChessBoard cb = new ChessBoard();
+//        cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
+//        cb.removePiece(6, 4);
+//        cb.removePiece(7, 4);
+//        cb.placePiece(new King(PieceColor.WHITE), 6, 4);
+//        cb.placePiece(new Bishop(PieceColor.BLACK), 4, 6);
+//        cb.setDangerousMoves();
+//        ArrayList<BoardSquare> moves = cb.checkedMoves();
+//        assertEquals(5, moves.size());
+    }
 
     @Test
     void checkmate() {
