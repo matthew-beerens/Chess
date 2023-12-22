@@ -29,10 +29,10 @@ public class Chess extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("Chess");
-        stage.setMaxWidth(720);
-        stage.setMaxHeight(748);
-        stage.setMinWidth(720);
-        stage.setMinHeight(748);
+        stage.setMaxWidth(736);
+        stage.setMaxHeight(758);
+        stage.setMinWidth(736);
+        stage.setMinHeight(758);
 
         for (Node bsui : this.ui.getChildren()) {
             bsui.setOnMouseClicked(e -> {
