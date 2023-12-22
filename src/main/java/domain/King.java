@@ -29,7 +29,8 @@ public class King extends Piece{
         // castle
         if (position.getX() == rank
                 && this.getFirstMove()
-                && chessboard.getSquare(rank, 7).getPiece().getFirstMove()) {
+                && chessboard.getSquare(rank, 7).getPiece().getFirstMove()
+                && chessboard.getSquare(rank, 7).getPiece().getType().equals(PieceType.ROOK)) {
             if (chessboard.getSquare(rank, position.getY() + 1).isEmpty()
                     && chessboard.getSquare(rank, position.getY() + 2).isEmpty()) {
                 this.addMove(moves, chessboard.getSquare(rank, position.getY() + 3));
