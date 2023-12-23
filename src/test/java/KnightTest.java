@@ -64,4 +64,5 @@ public class KnightTest {
         assertEquals(allMoves.size(), 8);
 
     }
+
 }

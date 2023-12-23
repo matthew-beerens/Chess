@@ -32,6 +32,7 @@ public class Knight extends Piece {
         // bottom right
         this.addMove(moves, chessboard.getSquare(position.getX() + 2, position.getY() + 1), this.getOpposingColor());
 
+
         return moves;
     }
 

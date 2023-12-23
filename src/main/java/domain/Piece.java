@@ -81,11 +81,7 @@ public abstract class Piece {
 
         moves.add(bs);
 
-        if(bs.getPiece().getColor().equals(color)) {
-            return false;
-        }
-
-        return true;
+        return !(bs.getPiece().getColor().equals(color));
     }
 
     public boolean addMove(ArrayList<BoardSquare> moves, BoardSquare bs) {
@@ -96,10 +92,7 @@ public abstract class Piece {
 
         moves.add(bs);
 
-        if(bs.getPiece().getColor().equals(color)) {
-            return false;
-        }
-
-        return true;
+        return !(bs.getPiece().getColor().equals(color));
     }
+
 }

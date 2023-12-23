@@ -82,16 +82,19 @@ public class ChessBoard {
 
     public void movePiece(BoardSquare source, BoardSquare destination) {
         List<BoardSquare> moves = source.getPiece().getMoves(this, source.getPosition());
-        // check king checked
-        if (this.kingChecked() && !this.checkedMoves(source).contains(destination)) {
+        if (this.isDangerousMove(source, destination)) {
             return;
         }
+//        // check king checked
+//        if (this.kingChecked() && !this.checkedMoves(source).contains(destination)) {
+//            return;
+//        }
         // valid move check
         if (!moves.contains(destination)) {
             return;
         }
         // castle logic
-        if (checkCastle(source, destination)) {
+        if (checkCastle(source, destination) && !this.kingChecked()) {
             this.castle(source, destination);
             return;
         }
@@ -173,6 +176,40 @@ public class ChessBoard {
             }
         }
         return false;
+    }
+
+    public PieceColor getChecked() {
+        this.allMoves.clear();
+        this.allMoves.addAll(this.blackMoves);
+        this.allMoves.addAll(this.whiteMoves);
+        for (BoardSquare bs : this.allMoves) {
+            if (bs.getPiece().getType().equals(PieceType.KING)) {
+                return bs.getPiece().getColor();
+            }
+        }
+        return null;
+    }
+
+    public boolean isDangerousMove(BoardSquare source, BoardSquare destination) {
+        boolean verdict = false;
+        Piece srcPiece = this.removePiece(source.getPosition().getX(), source.getPosition().getY());
+        Piece dstPiece = this.removePiece(destination.getPosition().getX(), destination.getPosition().getY());
+        this.placePiece(srcPiece, destination.getPosition().getX(), destination.getPosition().getY());
+        this.setDangerousMoves();
+
+        if (this.getChecked() == null) {
+            verdict = false;
+        }
+
+        else if (this.getChecked().equals(srcPiece.getColor())) {
+            verdict = true;
+        }
+
+        this.removePiece(destination.getPosition().getX(), destination.getPosition().getY());
+        this.placePiece(dstPiece, destination.getPosition().getX(), destination.getPosition().getY());
+        this.placePiece(srcPiece, source.getPosition().getX(), source.getPosition().getY());
+        this.setDangerousMoves();
+        return verdict;
     }
 
     public List<BoardSquare> checkedMoves(BoardSquare source) {
