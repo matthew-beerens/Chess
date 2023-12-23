@@ -83,12 +83,10 @@ public class ChessBoard {
     public void movePiece(BoardSquare source, BoardSquare destination) {
         // check for checkmate white
         if (this.checkMate(PieceColor.WHITE)) {
-            System.out.println("checkmate - white lose");
             return;
         }
         // check for checkmate black
         if (this.checkMate(PieceColor.BLACK)) {
-            System.out.println("checkmate - black lose");
             return;
         }
         // get moves
@@ -102,7 +100,10 @@ public class ChessBoard {
             return;
         }
         // castle logic
-        if (checkCastle(source, destination) && !this.kingChecked()) {
+        if (checkCastle(source, destination)) {
+            if (this.kingChecked()) {
+                return;
+            }
             this.castle(source, destination);
             return;
         }
