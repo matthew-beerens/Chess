@@ -174,6 +174,9 @@ public class ChessBoard {
         if (!(difference == 1 || difference == -1)) {
             return false;
         }
+        if (!(source.getPosition().getX() == destination.getPosition().getX())) {
+            return false;
+        }
         Pawn pawn = (Pawn) destination.getPiece();
         return pawn.isEnpassantable();
     }
