@@ -81,14 +81,22 @@ public class ChessBoard {
     }
 
     public void movePiece(BoardSquare source, BoardSquare destination) {
+        // check for checkmate white
+        if (this.checkMate(PieceColor.WHITE)) {
+            System.out.println("checkmate - white lose");
+            return;
+        }
+        // check for checkmate black
+        if (this.checkMate(PieceColor.BLACK)) {
+            System.out.println("checkmate - black lose");
+            return;
+        }
+        // get moves
         List<BoardSquare> moves = source.getPiece().getMoves(this, source.getPosition());
+        // prevent unsafe move
         if (this.isDangerousMove(source, destination)) {
             return;
         }
-//        // check king checked
-//        if (this.kingChecked() && !this.checkedMoves(source).contains(destination)) {
-//            return;
-//        }
         // valid move check
         if (!moves.contains(destination)) {
             return;
@@ -114,11 +122,25 @@ public class ChessBoard {
         this.setDangerousMoves();
     }
 
-    public boolean checkCastle(BoardSquare source, BoardSquare destination) {
-        if (source.getPiece().getType().equals(PieceType.KING) && destination.getPiece().getType().equals(PieceType.ROOK)) {
-            return true;
+    public boolean checkMate(PieceColor color) {
+        for (ChessBoardRow cbr : this.getChessBoard()) {
+            for (BoardSquare bs : cbr.getRow()) {
+                if (!bs.getPiece().getColor().equals(color)) {
+                    continue;
+                }
+                List<BoardSquare> moves = bs.getPiece().getMoves(this, bs.getPosition());
+                for (BoardSquare move : moves) {
+                    if (!this.isDangerousMove(bs, move)) {
+                        return false;
+                    }
+                }
+            }
         }
-        return false;
+        return true;
+    }
+
+    public boolean checkCastle(BoardSquare source, BoardSquare destination) {
+        return source.getPiece().getType().equals(PieceType.KING) && destination.getPiece().getType().equals(PieceType.ROOK);
     }
 
     public void castle(BoardSquare source, BoardSquare destination) {
@@ -131,12 +153,9 @@ public class ChessBoard {
     }
 
     public boolean checkEnpassantable(BoardSquare source, BoardSquare destination) {
-        if (source.getPiece().getType().equals(PieceType.PAWN)
+        return (source.getPiece().getType().equals(PieceType.PAWN)
                 && ((source.getPosition().getX() - destination.getPosition().getX() == 2)
-                || (source.getPosition().getX() - destination.getPosition().getX() == -2))) {
-            return true;
-        }
-        return false;
+                || (source.getPosition().getX() - destination.getPosition().getX() == -2)));
     }
 
     public void setEnpassantable(Pawn pawn) {
@@ -210,66 +229,6 @@ public class ChessBoard {
         this.placePiece(srcPiece, source.getPosition().getX(), source.getPosition().getY());
         this.setDangerousMoves();
         return verdict;
-    }
-
-    public List<BoardSquare> checkedMoves(BoardSquare source) {
-
-        if (source.getPiece().getType().equals(PieceType.KING)) {
-            return source.getPiece().getMoves(this, source.getPosition());
-        }
-
-        ArrayList<BoardSquare> collectedMoves = new ArrayList<>();
-
-        for (ChessBoardRow cbr : this.getChessBoard()) {
-            for (BoardSquare bs : cbr.getRow()) {
-
-                Piece piece = bs.getPiece();
-                List<BoardSquare> moves = piece.getMoves(this, bs.getPosition());
-
-                ArrayList<BoardSquare> path = new ArrayList<>();
-                BoardSquare kingSquare = null;
-
-                // find king in piece moves and add all moves to path
-                for (BoardSquare move : moves) {
-                    if (move.getPiece().getType().equals(PieceType.KING)) {
-                        path.addAll(moves);
-                        collectedMoves.add(bs);
-                        kingSquare = move;
-                        break;
-                    }
-                }
-
-                // no king - continue to next iteration
-                if (kingSquare == null) {
-                    continue;
-                }
-
-                // get the difference in position between attacking piece
-                // and defending king
-                int kingX = kingSquare.getPosition().getX();
-                int kingY = kingSquare.getPosition().getX();
-                int bsX = bs.getPosition().getX();
-                int bsY = bs.getPosition().getY();
-                int originDiffX = kingX - bsX;
-                int originDiffY = kingY - bsY;
-
-                // extract the path from path and add to collected moves
-                for (BoardSquare move : path) {
-                    int moveX = move.getPosition().getX();
-                    int moveY = move.getPosition().getY();
-                    int diffX =  moveX - kingX;
-                    int diffY =  moveY - kingY;
-
-                    if (diffX > originDiffX || diffY > originDiffY) {
-                        continue;
-                    }
-                    collectedMoves.add(move);
-                }
-
-            }
-        }
-
-        return collectedMoves;
     }
 
 
