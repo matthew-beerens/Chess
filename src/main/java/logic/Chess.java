@@ -17,6 +17,9 @@ public class Chess extends Application {
     private ChessBoardUi ui;
     private BoardSquare selectedSquare;
     private List<BoardSquare> availableMoves;
+    private Player white;
+    private Player black;
+    private Player currentTurn;
 
     public void init() {
         this.ui = new ChessBoardUi();
@@ -25,6 +28,9 @@ public class Chess extends Application {
         this.ui.initialize(Color.rgb(222,184,135), Color.rgb(139,69,19), this.chessBoard);
         this.selectedSquare = null;
         this.availableMoves = new ArrayList<>();
+        this.white = new Player(PieceColor.WHITE);
+        this.black = new Player(PieceColor.BLACK);
+        this.currentTurn = this.white;
     }
     @Override
     public void start(Stage stage) throws Exception {
@@ -63,9 +69,13 @@ public class Chess extends Application {
             this.availableMoves = new ArrayList<>();
             return;
         }
+        if (!this.selectedSquare.getPiece().getColor().equals(this.currentTurn.getColor())) {
+            return;
+        }
         this.chessBoard.movePiece(this.selectedSquare, selectedMove);
         this.selectedSquare = null;
         this.availableMoves = new ArrayList<>();
+        this.currentTurn = this.currentTurn.equals(white) ? this.black : this.white;
     }
 
     public void renderPieces(ChessBoard chessBoard) {
