@@ -57,28 +57,67 @@ public class Chess extends Application {
 
     public void makeMove(BoardSquareUi bs) {
         SquarePosition position = bs.getPosition();
-        if (this.selectedSquare == null && !this.chessBoard.getPiece(position.getX(), position.getY()).getType().equals(PieceType.NULL)) {
-            BoardSquare selectedSquare = this.chessBoard.getSquare(position.getX(), position.getY());
-            this.availableMoves = selectedSquare.getPiece().getMoves(this.chessBoard, selectedSquare.getPosition());
-            this.selectedSquare = selectedSquare;
+
+        if(this.setSourceSquare(position)) {
             return;
         }
-        BoardSquare selectedMove = chessBoard.getSquare(bs.getPosition().getX(), bs.getPosition().getY());
-        if (!this.availableMoves.contains(selectedMove)) {
-            this.selectedSquare = null;
-            this.availableMoves = new ArrayList<>();
+
+        BoardSquare selectedMove = this.selectedMove(position);
+
+        if(!this.validateMove(selectedMove)) {
             return;
         }
-        if (!this.selectedSquare.getPiece().getColor().equals(this.currentTurn.getColor())) {
-            return;
-        }
-        this.chessBoard.movePiece(this.selectedSquare, selectedMove);
-        this.selectedSquare = null;
-        this.availableMoves = new ArrayList<>();
-        this.currentTurn = this.currentTurn.equals(white) ? this.black : this.white;
+
+        this.move(selectedMove);
+        this.resetState();
+        this.switchPlayer();
     }
 
     public void renderPieces(ChessBoard chessBoard) {
         this.ui.renderPieces(chessBoard);
+    }
+
+    public boolean setSourceSquare(SquarePosition position) {
+        if (this.selectedSquare == null && !this.chessBoard.getPiece(position.getX(), position.getY())
+                .getType()
+                .equals(PieceType.NULL))
+        {
+            BoardSquare selectedSquare = this.chessBoard.getSquare(position.getX(), position.getY());
+            this.availableMoves = selectedSquare.getPiece()
+                    .getMoves(this.chessBoard, selectedSquare.getPosition());
+            this.selectedSquare = selectedSquare;
+            return true;
+        }
+        return false;
+    }
+
+    public BoardSquare selectedMove(SquarePosition position) {
+        return chessBoard.getSquare(position.getX(), position.getY());
+    }
+
+    public boolean validateMove(BoardSquare selectedMove) {
+        if (!this.availableMoves.contains(selectedMove)) {
+            this.selectedSquare = null;
+            this.availableMoves = new ArrayList<>();
+            return false;
+        }
+        if (!this.selectedSquare.getPiece()
+                .getColor()
+                .equals(this.currentTurn.getColor())) {
+            return false;
+        }
+        return true;
+    }
+
+    public void resetState() {
+        this.selectedSquare = null;
+        this.availableMoves.clear();
+    }
+
+    public void switchPlayer() {
+        this.currentTurn = this.currentTurn.equals(white) ? this.black : this.white;
+    }
+    public void move(BoardSquare selectedMove) {
+        this.chessBoard.movePiece(this.selectedSquare, selectedMove);
     }
 }
