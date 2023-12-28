@@ -1,6 +1,8 @@
 package domain;
 
+import javax.print.attribute.standard.Destination;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,6 +71,12 @@ public abstract class Piece {
 
     public abstract List<BoardSquare> getMoves(ChessBoard chessboard, SquarePosition position);
 
+    public List<BoardSquare> getSafeMoves(ChessBoard chessboard, BoardSquare source) {
+        List<BoardSquare> destinations = this.getMoves(chessboard, source.getPosition());
+        this.filterDangerousMoves(chessboard, source, destinations);
+        return destinations;
+    }
+
     public boolean addMove(ArrayList<BoardSquare> moves, BoardSquare bs, PieceColor color) {
 
         if (bs == null) {
@@ -95,4 +103,13 @@ public abstract class Piece {
         return !(bs.getPiece().getColor().equals(color));
     }
 
+    public void filterDangerousMoves(ChessBoard chessBoard, BoardSquare source, List<BoardSquare> destinations) {
+        Iterator it = destinations.iterator();
+        while (it.hasNext()) {
+            BoardSquare destination = (BoardSquare) it.next();
+            if (chessBoard.isDangerousMove(source, destination)) {
+                it.remove();
+            }
+        }
+    }
 }

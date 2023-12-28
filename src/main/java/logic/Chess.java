@@ -84,7 +84,7 @@ public class Chess extends Application {
         {
             BoardSquare selectedSquare = this.chessBoard.getSquare(position.getX(), position.getY());
             this.availableMoves = selectedSquare.getPiece()
-                    .getMoves(this.chessBoard, selectedSquare.getPosition());
+                    .getSafeMoves(this.chessBoard, selectedSquare);
             this.selectedSquare = selectedSquare;
             return true;
         }
