@@ -89,12 +89,10 @@ public class ChessBoard {
         if (this.checkMate(PieceColor.BLACK)) {
             return;
         }
+
         // get moves
         List<BoardSquare> moves = source.getPiece().getSafeMoves(this, source);
-        // prevent unsafe move
-//        if (this.isDangerousMove(source, destination)) {
-//            return;
-//        }
+
         // valid move check
         if (!moves.contains(destination)) {
             return;
