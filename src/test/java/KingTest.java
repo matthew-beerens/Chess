@@ -101,7 +101,8 @@ public class KingTest {
         cb.removePiece(6, 4);
         cb.placePiece(new Bishop(PieceColor.BLACK), 5, 5);
         cb.setDangerousMoves();
-        List<BoardSquare> moves = cb.getPiece(7, 4).getMoves(cb, cb.getSquare(7, 4).getPosition());
+        List<BoardSquare> moves = cb.getPiece(7, 4).getSafeMoves(cb, cb.getSquare(7, 4));
+        System.out.println(cb);
         assertEquals(0, moves.size());
     }
 
@@ -111,7 +112,7 @@ public class KingTest {
         cb.initialize(PieceColor.WHITE, PieceColor.BLACK);
         cb.removePiece(6, 4);
         cb.placePiece(new Bishop(PieceColor.WHITE), 5, 5);
-        List<BoardSquare> moves1 = cb.getPiece(7, 4).getMoves(cb, cb.getSquare(7, 4).getPosition());
+        List<BoardSquare> moves1 = cb.getPiece(7, 4).getSafeMoves(cb, cb.getSquare(7, 4));
         cb.setDangerousMoves();
         assertEquals(1, moves1.size());
     }

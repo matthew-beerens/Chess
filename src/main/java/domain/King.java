@@ -38,16 +38,6 @@ public class King extends Piece{
             }
         }
 
-        ArrayList<BoardSquare> dangerousMoves = this.getColor().equals(PieceColor.WHITE) ? chessboard.getBlackMoves() : chessboard.getWhiteMoves();
-
-        Iterator iterator = moves.iterator();
-        while(iterator.hasNext()) {
-            BoardSquare move = (BoardSquare) iterator.next();
-            if (dangerousMoves.contains(move)) {
-                iterator.remove();
-            }
-        }
-
         return moves;
     }
 
