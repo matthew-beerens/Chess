@@ -1,8 +1,12 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Player {
+    private final List<Piece> captured;
+    private PieceColor color;
     public PieceColor getColor() {
         return color;
     }
@@ -10,12 +14,21 @@ public class Player {
         this.color = color;
     }
 
-    private PieceColor color;
     public Player(PieceColor color) {
         this.color = color;
+        this.captured = new ArrayList<>();
     }
+
     public Player() {
         this(PieceColor.NULL);
+    }
+
+    public List<Piece> getCaptured() {
+        return captured;
+    }
+
+    public void capturePiece(Piece piece) {
+        this.captured.add(piece);
     }
 
     @Override
